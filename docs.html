@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Documentation — OmniaCMDs</title>
+<meta name="description" content="Keep your Windows session awake and turn ALT + a key into any command.">
+<link rel="icon" href="assets/icons/icon.svg">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><img src="assets/icons/icon.svg" alt=""><span>OmniaCMDs</span></a>
+  <nav class="menu"><a href="index.html">Home</a><a href="download.html">Download</a><a href="docs.html" aria-current="page">Documentation</a><a href="tutorials.html">Tutorials</a><a href="about.html">About</a><a href="donate.html">Donate</a></nav>
+  <p class="lang"><span aria-current="true">EN</span> <span class="soon" title="Coming soon">IT</span> <span class="soon" title="Coming soon">ES</span></p>
+</div></header>
+<main id="main">
+<section class="band"><div class="wrap">
+  <h1>Documentation</h1>
+  <p class="lede">How the app is organised, what every internal command does, and what happens when something is set up wrong.</p>
+  <div class="docs">
+    <nav class="toc" aria-label="Documentation"><ol><li><a href="#start">Getting started</a></li><li><a href="#dashboard">The Dashboard</a></li><li><a href="#antiidle">Anti Idle</a></li><li><a href="#keymapper">Key Mapper</a></li><li><a href="#commands">Internal commands</a></li><li><a href="#errors">When something is wrong</a></li><li><a href="#screenshot">Screenshot</a></li><li><a href="#tesseract">Tesseract</a></li><li><a href="#encryption">Encryption</a></li><li><a href="#snipping">Snipping</a></li><li><a href="#settings">Settings and sounds</a></li><li><a href="#files">Configuration files</a></li></ol></nav>
+    <article class="doc"><h2 id="start">Getting started</h2>
+<p>OmniaCMDs is built around two <b>modules</b> — Anti Idle and Key Mapper — and two
+<b>tools</b> — Encryption and Snipping. The modules do the work; the tools give three
+of the commands a page of their own, where you can use them by hand.</p>
+<p>Everything a module or a tool performs is an <b>internal command</b>: typing a text,
+pressing a shortcut, writing the time, reading the screen. The commands are the same
+for both modules, which is why learning one teaches you the other.</p>
+<p>The app has four pages, listed down the left side.</p>
+<ul>
+  <li><b>Dashboard</b> — start and stop the modules.</li>
+  <li><b>Settings</b> — the app itself, the two modules, and the advanced commands.</li>
+  <li><b>Tools</b> — Encryption and Snipping, to use by hand.</li>
+  <li><b>About</b> — version, licence and links.</li>
+</ul>
+<figure class="shot"><img src="assets/img/doc-dashboard.png" alt="The Dashboard, with Anti Idle paused and Key Mapper running." loading="lazy"><figcaption>The Dashboard, with Anti Idle paused and Key Mapper running.</figcaption></figure>
+<p>A module has to be stopped before its settings can be changed, and the app refuses
+to close while one is running. Stop it from the Dashboard first.</p>
+<p>Nothing is installed and nothing is written outside the app's own folder, so it runs
+from a USB stick as well as from <code>C:\</code>.</p><h2 id="dashboard">The Dashboard</h2>
+<p>One card per module. The strip at the top carries the module's name and its state:
+<b>Stopped</b>, <b>Running</b> or <b>Paused</b>. Clicking the strip folds the card away,
+which is handy once everything is set up.</p>
+<p>Inside the card you find the shortcuts the module listens for, so you never have to
+go looking for them, and the buttons that start and stop it.</p>
+<p>The Key Mapper card has two more rows:</p>
+<ul>
+  <li><b>Active group</b> — the set of mappings in use. You can change it while the
+  module runs and the change takes effect immediately.</li>
+  <li><b>Key</b> — the password for the <code>decrypt</code> command, asked once, when
+  the module starts. The eye button shows what you are typing. The field is cleared
+  afterwards and tells you whether a key was loaded; the key itself is kept in memory
+  only, never written anywhere.</li>
+</ul>
+<div class="note"><p>Buttons on this page are silent on purpose. Sounds belong to the
+keyboard shortcuts, so you are not startled by your own clicking.</p></div><h2 id="antiidle">Anti Idle</h2>
+<p>Anti Idle repeats a list of actions at a set interval, so a session is never
+considered idle. Set it in <b>Settings › Anti Idle</b>.</p>
+<figure class="shot"><img src="assets/img/doc-antiidle.png" alt="The Anti Idle settings page." loading="lazy"><figcaption>The Anti Idle settings page.</figcaption></figure>
+<h3>Shortcuts</h3>
+<p>Two ALT combinations control the module while it runs: one pauses and resumes it, the
+other stops it. They work anywhere, so you never have to come back to the window.</p>
+<h3>Repetition</h3>
+<p>The <b>interval</b> is how long the module waits after finishing the list before
+starting again. With <b>Random interval</b> on, each wait is a random amount up to that
+value, which looks less mechanical than a fixed beat.</p>
+<h3>Windows to watch</h3>
+<p>Leave the list empty and the module always acts. Add window titles and it acts only
+while one of them is in front — useful when the session you want to keep awake is a
+remote desktop and you want to type in other apps in peace.</p>
+<p><b>Title check</b> decides how a title is compared: <i>exact name</i> matches the
+last part of the title, after the final dash, which is where most programs put their own
+name; <i>contains</i> matches anywhere in the title.</p>
+<h3>Actions</h3>
+<p>The list runs top to bottom, then the module waits and starts again. Each row is an
+internal command — see <a href="#commands">Internal commands</a>. Anti Idle offers the
+five that make sense for a list that repeats: <code>text</code>, <code>shortcut</code>,
+<code>clock</code>, <code>load</code> and <code>mouse</code>.</p>
+<h3>Waits</h3>
+<p>Three of them: between characters and between lines, for text that is typed, and
+between one action and the next. With <b>Fast typing</b> on, text appears at once and
+the two typing waits are ignored.</p>
+<div class="note"><p>While a long text is being typed, a left click stops it. The module
+carries on with the rest of the list.</p></div><h2 id="keymapper">Key Mapper</h2>
+<p>Key Mapper listens for ALT + a key and for four mouse buttons, and runs the command
+bound to them. Set it in <b>Settings › Key Mapper</b>.</p>
+<figure class="shot"><img src="assets/img/doc-keymapper.png" alt="The Key Mapper settings, with its groups and mappings." loading="lazy"><figcaption>The Key Mapper settings, with its groups and mappings.</figcaption></figure>
+<h3>Groups</h3>
+<p>A group is a complete set of mappings — one per application, or one per customer,
+however you like to work.</p>
+<p>The <b>active group</b> is the one the module loads when it starts. The <b>group
+shown</b> is the one you are editing, which lets you prepare a set without disturbing
+the one in use. While the module runs you can switch the active group from the
+Dashboard.</p>
+<p>The group called DEFAULT cannot be renamed or deleted. Any other group can, with the
+two buttons next to the picker.</p>
+<h3>Mouse</h3>
+<p>Five bindings, fixed:</p>
+<table>
+  <thead><tr><th>Button</th><th>What it is</th></tr></thead>
+  <tbody>
+    <tr><td><code>MB3</code></td><td>a short middle click</td></tr>
+    <tr><td><code>MB3-1</code></td><td>a middle click held up to a second</td></tr>
+    <tr><td><code>MB3-2</code></td><td>a middle click held longer</td></tr>
+    <tr><td><code>X1</code></td><td>the first side button</td></tr>
+    <tr><td><code>X2</code></td><td>the second side button</td></tr>
+  </tbody>
+</table>
+<h3>Keyboard</h3>
+<p>Any number of ALT combinations, added with the button at the bottom of the list. A
+row whose key is set to <i>none</i> is ignored and is not written to the file, so you
+can leave one ready for later.</p>
+<h3>Waits</h3>
+<p>The same as Anti Idle, for the text a command types, and a left click stops a long
+one.</p>
+<div class="note"><p>ALT is released only for the combinations the module listens for.
+Everything else, ALT + TAB included, reaches Windows untouched.</p></div><h2 id="commands">Internal commands</h2>
+<p>Everything the app performs is an internal command. Most are shared between the two
+modules; three are marked <i>advanced</i> because they carry enough settings of their own
+to deserve a page in Settings and a tool with its own interface.</p>
+<table>
+  <thead><tr><th>Command</th><th>What it does</th><th>Anti Idle</th><th>Key Mapper</th><th>Type</th></tr></thead>
+  <tbody>
+    <tr><td><code>text</code></td><td>Types the text you wrote</td><td>✔</td><td>✔</td><td>normal</td></tr>
+    <tr><td><code>shortcut</code></td><td>Presses a key combination</td><td>✔</td><td>✔</td><td>normal</td></tr>
+    <tr><td><code>clock</code></td><td>Types the date and time</td><td>✔</td><td>✔</td><td>normal</td></tr>
+    <tr><td><code>load</code></td><td>Types the contents of a text file</td><td>✔</td><td>✔</td><td>normal</td></tr>
+    <tr><td><code>start</code></td><td>Opens a file with the program Windows uses for it</td><td></td><td>✔</td><td>normal</td></tr>
+    <tr><td><code>clipboard</code></td><td>Types whatever is in the clipboard</td><td></td><td>✔</td><td>normal</td></tr>
+    <tr><td><code>mouse</code></td><td>Moves the pointer a little</td><td>✔</td><td></td><td>normal</td></tr>
+    <tr><td><code>decrypt</code></td><td>Types a text that is stored encrypted</td><td></td><td>✔</td><td>advanced</td></tr>
+    <tr><td><code>screenshot</code></td><td>Captures the screen and saves an image</td><td></td><td>✔</td><td>advanced</td></tr>
+    <tr><td><code>tesseract</code></td><td>Captures the screen, reads the text, copies it</td><td></td><td>✔</td><td>advanced</td></tr>
+  </tbody>
+</table>
+<p>A mapping whose command is <code>none</code> does nothing: it is a binding kept for
+later, and it is not written to the file.</p>
+<h3>What each one takes</h3>
+<ul>
+  <li><code>text</code> — the text to type, on one line, with escapes for line breaks and
+  tabs.</li>
+  <li><code>shortcut</code> — a combination such as <code>ctrl+v</code> or
+  <code>ctrl+shift+esc</code>, written the way the keyboard library names its keys.</li>
+  <li><code>clock</code> — a time format, see below.</li>
+  <li><code>load</code> and <code>start</code> — a path to a file. A path that starts
+  with <code>.\</code> is relative to the app folder, which keeps the whole thing
+  portable.</li>
+  <li><code>decrypt</code> — the encrypted text, as the Encryption tool produced it.</li>
+  <li><code>screenshot</code> and <code>tesseract</code> — which option to use, among
+  those defined in Settings.</li>
+  <li><code>clipboard</code> and <code>mouse</code> — nothing.</li>
+</ul>
+<h3>Escapes in text</h3>
+<p>A text field is a single line, so line breaks and tabs are written with a backslash.
+This applies to <code>text</code> and to the format of <code>clock</code>; everywhere
+else, including paths, a backslash is just a backslash.</p>
+<table>
+  <thead><tr><th>You write</th><th>You get</th></tr></thead>
+  <tbody>
+    <tr><td><code>\n</code></td><td>a new line</td></tr>
+    <tr><td><code>\t</code></td><td>a tab</td></tr>
+    <tr><td><code>\\</code></td><td>a backslash</td></tr>
+  </tbody>
+</table>
+<h3>Time formats</h3>
+<p>The <code>clock</code> command passes your format straight to Python's
+<code>strftime</code>. Codes it knows are replaced, anything else is copied as it is — so
+a format with a mistake in it prints the mistake rather than failing.</p>
+<pre><code>%Y-%m-%d_%H:%M:%S   2026-11-01_14:22:05
+%d/%m/%Y %H:%M      01/11/2026 14:22
+%H:%M\n             14:22 and a new line</code></pre><h2 id="errors">When something is wrong</h2>
+<p>The app does not check your settings before running them. A command that cannot do its
+job either does nothing or types a message where you are typing, so you can see it and
+fix it.</p>
+<table>
+  <thead><tr><th>What happened</th><th>What you see</th></tr></thead>
+  <tbody>
+    <tr><td>The clipboard is empty</td><td><code>KM_MODULE_NO_TEXT_IN_CLIPBOARD</code></td></tr>
+    <tr><td>Wrong key, or the encrypted text is damaged</td><td><code>KM_MODULE_DECRYPT_FAILED</code></td></tr>
+    <tr><td>The file to load is not there</td><td><code>KM_MODULE_FILE_NOT_FOUND</code></td></tr>
+    <tr><td>The file cannot be read as text</td><td><code>KM_MODULE_FILE_NOT_READABLE</code></td></tr>
+    <tr><td>The shortcut names a key that does not exist</td><td><code>KM_MODULE_SHORTCUT_FAILED</code></td></tr>
+    <tr><td>Tesseract is not where the settings say</td><td><code>TESSERACT_COPY_FAILED_EXE_NOT_FOUND</code></td></tr>
+    <tr><td>Tesseract read nothing</td><td><code>TESSERACT_COPY_FAILED</code></td></tr>
+  </tbody>
+</table>
+<p>In Anti Idle the same messages start with <code>AI_MODULE_</code>. They are typed at
+once, without the waits, so they never look like the text you were expecting.</p>
+<p>Two cases stay silent, because there is nothing useful to say in the middle of your
+typing: <code>start</code> with a file that is not there opens nothing, and a screenshot
+whose folder does not exist is not saved.</p>
+<div class="note">
+  <p>Some mistakes cannot be detected at all. A shortcut that Windows accepts but no
+  program listens for, or a Tesseract language pack that is not installed, produce no
+  error: the first does nothing, the second reads the text badly. Read this page before
+  blaming the app.</p>
+</div><h2 id="screenshot">Screenshot</h2>
+<p>In <b>Settings › Advanced CMDs › Screenshot</b>. The same capture is on the Tools
+page, to use by hand.</p>
+<figure class="shot"><img src="assets/img/doc-screenshot.png" alt="The screenshot command and its options." loading="lazy"><figcaption>The screenshot command and its options.</figcaption></figure>
+<h3>General</h3>
+<p><b>Hide the app</b> takes the window out of the way before the capture, so it is not in
+the picture. Turn it off if you want to capture the app itself.</p>
+<p><b>Sound</b> plays a file after the capture. If the file is not there, the capture is
+silent.</p>
+<h3>Options</h3>
+<p>An option is a named set of values, so one key can save to your desktop and another to
+a work folder. DEFAULT always exists and cannot be removed.</p>
+<ul>
+  <li><b>Full screen</b> — capture everything instead of choosing an area.</li>
+  <li><b>Folder</b> — where the images go. If it does not exist, nothing is saved.</li>
+  <li><b>File name</b> — added after the date.</li>
+</ul>
+<p>Files are named with the moment they were taken, so they sort themselves:
+<code>2026-11-01_14-22-05_screenshot.png</code>.</p>
+<h3>Choosing an area</h3>
+<p>The screen dims and the pointer becomes a cross. Drag to choose, release to confirm.
+Esc or the right button gives up.</p><h2 id="tesseract">Tesseract</h2>
+<p>In <b>Settings › Advanced CMDs › Tesseract</b>. It reads the text inside the area you
+choose and puts it in the clipboard.</p>
+<figure class="shot"><img src="assets/img/doc-tesseract.png" alt="The tesseract command, its language and its replacements." loading="lazy"><figcaption>The tesseract command, its language and its replacements.</figcaption></figure>
+<p>Tesseract is a separate program and has to be installed first, together with the
+language packs you need.</p>
+<h3>General</h3>
+<ul>
+  <li><b>Language</b> — the name of an installed language pack, such as <code>eng</code>
+  or <code>ita</code>. A name that is not installed raises no error; the reading is simply
+  poor.</li>
+  <li><b>Parameters</b> — passed to Tesseract as they are. <code>--psm 3 --oem 3</code>
+  suits most screens.</li>
+  <li><b>Executable</b> — the full path to <code>tesseract.exe</code>.</li>
+</ul>
+<h3>Options</h3>
+<p>Like Screenshot, a named set of values. Here they change the text after it is read: a
+<b>leading</b> and a <b>trailing</b> text, and a list of <b>replacements</b> applied in
+order — handy when a font makes Tesseract read 1 as l, or when every reading needs the
+same prefix.</p><h2 id="encryption">Encryption</h2>
+<p>On the <b>Tools</b> page. Type a key and a text, press Encrypt, and copy the result
+into a <code>decrypt</code> mapping.</p>
+<figure class="shot"><img src="assets/img/doc-encryption.png" alt="The Encryption tool." loading="lazy"><figcaption>The Encryption tool.</figcaption></figure>
+<p>The tool goes one step further than the command: <code>decrypt</code> only decrypts,
+while here you can also encrypt, which is how you prepare a text to store.</p>
+<p>One key serves a whole group, so every encrypted text in it must be made with the same
+key. The module asks for that key once, when it starts, and keeps it in memory only.</p>
+<h3>The method</h3>
+<p>Fernet — AES-128-CBC with an HMAC-SHA256 signature — with a key derived from the
+SHA-256 of your password, and base64 output. There is nothing to configure: the algorithm
+is fixed.</p>
+<div class="note">
+  <p>The password becomes a key through a single fast hash, with no salt. That is enough
+  to keep a password out of a plain text file, not to protect it from someone who has the
+  encrypted text and time to try millions of guesses.</p>
+</div><h2 id="snipping">Snipping</h2>
+<p>On the <b>Tools</b> page, the other half of the advanced commands.</p>
+<figure class="shot"><img src="assets/img/doc-snipping.png" alt="The Snipping tool." loading="lazy"><figcaption>The Snipping tool.</figcaption></figure>
+<p>Choose the <b>command</b> — screenshot or tesseract — and the <b>option</b> to use,
+then press Capture. What happens next is exactly what the matching key would do, which
+makes this page the place to test a setting before binding it.</p><h2 id="settings">Settings and sounds</h2>
+<p><b>Settings › Main</b> holds the app itself.</p>
+<figure class="shot"><img src="assets/img/doc-settings.png" alt="The main settings of the app." loading="lazy"><figcaption>The main settings of the app.</figcaption></figure>
+<ul>
+  <li><b>Language</b> — English, Italian, Spanish. The change is immediate.</li>
+  <li><b>Icons</b> — an icon set from <code>data/style/icons</code>.</li>
+  <li><b>Overlay menu</b> — on, the side menu covers the page and closes itself; off, it
+  stays open beside it.</li>
+  <li><b>Tray icon</b> — with it on, closing the window hides the app and you quit from
+  the tray; with it off, closing the window quits.</li>
+</ul>
+<h3>Sounds</h3>
+<p>Each module has a sound set, a folder under <code>data/style/sounds</code>. A file is
+named after the command it belongs to — <code>text.mp3</code>, <code>clock.mp3</code>,
+<code>stop.mp3</code> — and a missing file just means silence. To make your own set, copy
+the folder and replace the files.</p>
+<p>Sounds play when you use the keyboard shortcuts. Buttons in the app stay silent.</p><h2 id="files">Configuration files</h2>
+<p>Everything lives in <code>config/</code>, next to the app. The files are YAML: plain
+text, with comments. Editing them by hand is fine, and the app reads them again when you
+press Restore.</p>
+<pre><code>config/
+  app.ini           language, icons, menu, tray, window size
+  anti_idle.yaml    the Anti Idle module
+  key_mapper.yaml   the Key Mapper module, with its groups
+  screenshot.yaml   the screenshot command
+  tesseract.yaml    the tesseract command</code></pre>
+<p>The Save and Restore banner appears as soon as a page differs from its file. Restore
+throws away your changes and reads the file again; nothing is written until you press
+Save.</p>
+<p>Delete a file and the app writes a fresh one, with its comments, the next time it
+starts. That is the quickest way back from a setup you have broken.</p></article>
+  </div>
+</div></section>
+</main>
+
+<footer class="foot"><div class="wrap">
+  <p>OmniaCMDs v1.0.0 - Free software under the GNU GPL v3.</p>
+  <p class="foot-links"><a href="docs.html">Documentation</a> · <a href="donate.html">Support the project</a> · <a href="https://github.com/" rel="noreferrer">GitHub</a> · <a href="https://youtube.com/" rel="noreferrer">YouTube</a> · <a href="https://linkedin.com/" rel="noreferrer">LinkedIn</a> · <a href="https://querci.ovh/" rel="noreferrer">Website</a></p>
+</div></footer>
+</body>
+</html>
